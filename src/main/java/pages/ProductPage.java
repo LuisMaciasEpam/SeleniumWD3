@@ -3,13 +3,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.io.Serial;
-
 import static utils.ActionUtil.hoverOverElement;
-import static utils.JavaScriptExecutorUtil.clickUsingJS;
-import static utils.JavaScriptExecutorUtil.highlightElement;
-import static utils.WaitUtil.waitForElementIsClickable;
 
 public class ProductPage extends BasePage{
 
