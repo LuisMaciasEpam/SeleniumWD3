@@ -3,9 +3,12 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 import utils.DriverFactory;
 
+import java.net.URL;
 import java.time.Duration;
 
 public class BaseTest {
@@ -13,14 +16,20 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod
-    public void setUp(@Optional("chrome") String browser) {
-        driver = DriverFactory.getDriver(browser);
-        driver.manage().window().maximize();
-        //driver.get("https://example.com"); // URL base
+    public void setUp(String browser) throws Exception {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        switch (browser) {
+            case "chrome" -> capabilities.setBrowserName("chrome");
+            case "firefox" -> capabilities.setBrowserName("firefox");
+            case "edge" -> capabilities.setBrowserName("MicrosoftEdge");
+        }
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
     }
 
     @AfterMethod
     public void tearDown() {
-        DriverFactory.quitDriver();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
