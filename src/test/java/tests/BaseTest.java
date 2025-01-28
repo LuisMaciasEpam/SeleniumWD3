@@ -16,7 +16,6 @@ public class BaseTest {
     public void setUp(@Optional("chrome") String browser) {
         driver = DriverFactory.getDriver(browser);
         driver.manage().window().maximize();
-        //driver.get("https://example.com"); // URL base
     }
 
     @AfterMethod
